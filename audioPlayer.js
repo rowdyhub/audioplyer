@@ -20,8 +20,8 @@ let next = document.getElementById('next');
 
 cover.style.height = parseInt(getComputedStyle(cover).width) + 'px';
 
-scroller.style.top = timeline.offsetTop-10 + 'px'; // Размещение ползунка на тааймлайне по вертикали
-scrollerRewind.style.top = timeline.offsetTop-10 + 'px'; // Размещение ползунка на тааймлайне по вертикали
+scroller.style.top = timeline.offsetTop-10 + 'px';          // Размещение ползунка на таймлайне по вертикали
+scrollerRewind.style.top = timeline.offsetTop-10 + 'px';    // Размещение ползунка на таймлайне по вертикали
 
 
 
@@ -117,43 +117,3 @@ setInterval(function(){
         };
     }
 }, 100);
-
-
-
-//console.log(getComputedStyle(timeline).width);
-
-
-
-//let currentAudio = new Audio('media/music/AVAION - Pieces.mp3')
-
-
-
-// currentAudio.duration - хранит продолжительность трека
-// currentAudio.currentTime - текущее время трека
-// currentAudio.buffered.end(0) - прогресс загрузки
-
-
-/* rolleDiscription()
-function rolleDiscription(){
-    let description = document.getElementById('description');
-    let descriptionText = description.innerText;
-
-    if(descriptionText.length > 20){
-        description.innerHTML = '<marquee direction="left" scrollamount="5">'+descriptionText+'</marquee>';
-    }
-    else {
-        description.innerHTML = descriptionText;
-    }
-}
-
-
-function titleAudioNormalize(){
-
-}
-
-
-console.log(currentAudio);
-function getAaa(){
-    console.log(currentAudio.buffered.end(0));
-    //currentAudio.currentTime += 5;
-} */

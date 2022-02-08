@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -12,11 +9,6 @@
     <title>Media - Music</title>
 </head>
 <body>
-
-<!-- <pre style="color: #fff">
-        Debug
-</pre> -->
-
     <div class="nav"></div>
     <div class="player">
         <div class="cover" id="cover"></div>
@@ -38,16 +30,12 @@
             <div id="next" title="Следующий трек"></div>
         </div>
     </div>
-</body>
-</html>
+
 <script src="audioPlayerClass.js"></script>
 <script src="audioPlayer.js"></script>
 
 
-
-
-
-<script>
+<script> // Полчучаем список аудиофайлов, помещаем в playlist
 <?php
 $scdir = scandir('media/music');
 $response = json_encode($scdir);
@@ -55,10 +43,10 @@ echo 'let getplaylist = '.$response.';';
 ?>
 
 
-
 for(let i = 2; i < getplaylist.length; i++){
     player.playlist.push(getplaylist[i].substr(0, getplaylist[i].lastIndexOf('.')));
 }
-
-
 </script>
+
+</body>
+</html>
