@@ -1,7 +1,7 @@
 class Player {
     constructor(){
         // config
-        this.userAutoplay = true;
+        this.userAutoplay = false;
 
         this.playerState = false;               // true - воспроизведение, false - ожидание
         this.playerMediaSRC = 'media/music/';
@@ -16,6 +16,7 @@ class Player {
         this.trackBufferPosition = 0;
 
         this.playlist = [];
+        this.playlistShow = false;
     }
 
     
@@ -31,7 +32,21 @@ class Player {
     }
 
 
-    changeTrack(titleText, action){
+    togglePlaylist(playlistblock) {
+        if(!this.playlistShow){
+            this.playlistShow = true;
+            playlistblock.style.transition = '.3s';
+            playlistblock.style.left = '0px';
+        }
+        else {
+            this.playlistShow = false;
+            playlistblock.style.transition = '.3s';
+            playlistblock.style.left = '100vw';
+        }
+    }
+
+
+    changeTrack(titleText, action, thisOneTrackId = null){
         if(this.trackCurrentAudio === undefined && this.playlist.length > 0){
             this.trackCurrentAudio = new Audio(this.playerMediaSRC + this.playlist[this.trackCurrentAudioId] + '.' + this.playerAudioType);
         }
@@ -53,19 +68,25 @@ class Player {
                     this.trackCurrentAudioId = this.playlist.length-1;
                 }
             }
+            else if(action === 'thisOne' && thisOneTrackId !== null){
+                this.trackCurrentAudioId = thisOneTrackId;
+            }
             else {
                 alert('Error controller');
             }
             this.trackCurrentAudio = new Audio(this.playerMediaSRC + this.playlist[this.trackCurrentAudioId] + '.' + this.playerAudioType);
-            this.trackCurrentAudio.play();
+            if(this.playerState){ 
+                this.trackCurrentAudio.play();
+            }
         }
         else {
             titleText.innerText = 'Нет треков для воспроизведения';
-            //alert('Что то пошло не так ((');
-
         }
         titleText.innerText = this.playlist[this.trackCurrentAudioId];
-        console.log(this.trackCurrentAudio + ' => ' + this.trackCurrentAudioId);
+        document.title = this.playlist[this.trackCurrentAudioId];
+        
+        /* console.log(this.trackCurrentAudio + ' => ' + this.trackCurrentAudioId); */
+        
     }
 
 
@@ -102,7 +123,12 @@ class Player {
     // Чекаем обновления и перерисовываем
     refreshState(trackLengthText, currentTimeText, scroller, timeline, timelinePlayed, timelineBuffered, playpause){
         if(this.playerState){
-            playpause.style.cssText = 'background: url("icons/pause.png") no-repeat; background-size: 60%; background-position: center; background-color: darkgrey;';
+            playpause.style.cssText = `
+                background: url("icons/pause.png") no-repeat; 
+                background-size: 60%; 
+                background-position: center; 
+                background-color: darkgrey;
+            `;
             this.trackCurrentTime = this.trackCurrentAudio.currentTime;
             this.trackDuration = this.trackCurrentAudio.duration;
             this.trackScrollerPosition = (1/this.trackDuration*this.trackCurrentTime);
@@ -114,7 +140,12 @@ class Player {
             timelineBuffered.style.width = 100/this.trackDuration*this.trackCurrentAudio.buffered.end(0) + '%';
         }
         else {
-            playpause.style.cssText = 'background: url("icons/play.png") no-repeat; background-size: 60%; background-position: center; background-color: darkgrey;';
+            playpause.style.cssText = `
+                background: url("icons/play.png") no-repeat; 
+                background-size: 60%; 
+                background-position: center; 
+                background-color: darkgrey;
+            `;
         }
     }
 

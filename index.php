@@ -29,13 +29,25 @@
             <div id="play" title="Воспроизвести"></div>
             <div id="next" title="Следующий трек"></div>
         </div>
+        <div class="func">
+            <div id="playlist_open" title="Плейлист"></div>
+        </div>
+    </div>
+    <div id="playlist">
+        <div class="bar" id="bar">
+            <input type="text" name="" id="search">
+            <span id="playlist_close"></span>
+        </div>
+        <div id="list">
+
+        </div>
     </div>
 
 <script src="audioPlayerClass.js"></script>
 <script src="audioPlayer.js"></script>
 
 
-<script> // Полчучаем список аудиофайлов, помещаем в playlist
+<script> // Полчучаем список аудиофайлов из локальной папки, помещаем в playlist
 <?php
 $scdir = scandir('media/music');
 $response = json_encode($scdir);
@@ -44,8 +56,13 @@ echo 'let getplaylist = '.$response.';';
 
 
 for(let i = 2; i < getplaylist.length; i++){
-    player.playlist.push(getplaylist[i].substr(0, getplaylist[i].lastIndexOf('.')));
+    let tmp = getplaylist[i].substr(0, getplaylist[i].lastIndexOf('.'));
+    player.playlist.push(tmp);
+    document.getElementById('list').innerHTML += '<div class="playlist_st" id = "'+(i-2)+'" onclick="player.changeTrack(titleText, \'thisOne\', '+(i-2)+');">'+tmp+'</div>';
 }
+
+player.changeTrack(titleText); // не передаем action
+
 </script>
 
 </body>

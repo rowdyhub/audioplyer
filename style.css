@@ -2,10 +2,18 @@ body, html {
     margin: 0;
     padding: 0;
     background: rgb(43, 43, 43);
+    overflow: hidden;
+}
+.nav {
+}
+.player {
+    overflow: hidden;
+    box-sizing: border-box;
+    touch-action: none;
 }
 .cover {
     background-color: rgba(250, 176, 176, 0.719);
-    margin: 20px;
+    margin: 10px 50px;
     box-shadow: #0000005b 5px 5px 10px inset;
 }
 
@@ -20,6 +28,7 @@ body, html {
     height: 3px;
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: #00000050 0 3px 5px;
+    overflow: hidden;
 }
 #timelineBuffered {
     height: 3px;
@@ -65,6 +74,7 @@ body, html {
     font-family: Arial, Helvetica, sans-serif;
     text-align: right;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 
@@ -101,11 +111,90 @@ body, html {
 
 }
 #prew, #play, #next {
-    width: 100px;
-    height: 80px;
+    width: 70px;
+    height: 50px;
     background-size: 60%;
     background-position: center;
     background-color: darkgrey;
     margin: 10px;
     box-shadow: #00000050 5px 5px 10px;
+}
+
+.func {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#playlist_open {
+    background: url('icons/icons8-список-100.png') no-repeat;
+    background-color: darkgrey;
+    background-size: 70%;
+    background-position: 50%;
+    width: 45px;
+    height: 45px;
+    touch-action: auto;
+}
+
+#playlist {
+    display: block;
+    position: fixed;
+    box-sizing: border-box;
+    width: 100vw;
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+    padding: 5px;
+    top: 0;
+    left: 100vw;
+    background-color: rgba(36, 36, 36, 0.9);
+    overflow: hidden;
+}
+
+.bar {
+    display: flex;
+    margin: 10px;
+}
+
+#search {
+    width: calc( 100% - 30px ); /* margin .bar + margin #playlist_close */
+    height: 30px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 18pt;
+}
+
+#playlist_close {
+    display: block;
+    position: relative;
+    margin: auto 0px auto 10px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    touch-action: auto;
+}
+
+#list {
+    overflow: scroll;
+}
+
+.playlist_st {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 10px;
+    height: 45px;
+    background: rgb(117, 117, 117);
+    color: #ffffff;
+    padding: 0px 15px;
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+    white-space: nowrap;
+    text-overflow: clip;
+    overflow: hidden;
 }

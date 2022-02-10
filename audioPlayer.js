@@ -13,25 +13,40 @@ let titleText = document.getElementById('titleText');
 let trackLengthText = document.getElementById('trackLengthText');
 let currentTimeText = document.getElementById('currentTimeText');
 
+
 let prew = document.getElementById('prew');
 let play = document.getElementById('play');
 let next = document.getElementById('next');
 
+let playlist_open = document.getElementById('playlist_open');
+let playlistBlock = document.getElementById('playlist');
+let playlist_close = document.getElementById('playlist_close');
+let bar = document.getElementById('bar');
+let list = document.getElementById('list');
+let playlist_st = document.getElementsByClassName('playlist_st');
 
 cover.style.height = parseInt(getComputedStyle(cover).width) + 'px';
+list.style.height = (displayH - parseInt(getComputedStyle(bar).height) - 30) + 'px';
+
+cover.innerText = `${displayW} x ${displayH}`;
 
 scroller.style.top = timeline.offsetTop-10 + 'px';          // Размещение ползунка на таймлайне по вертикали
 scrollerRewind.style.top = timeline.offsetTop-10 + 'px';    // Размещение ползунка на таймлайне по вертикали
 
 
+window.onresize = () => {
+    cover.style.height = parseInt(getComputedStyle(cover).width) + 'px';
 
+    scroller.style.top = timeline.offsetTop-10 + 'px';          // Размещение ползунка на таймлайне по вертикали
+    scrollerRewind.style.top = timeline.offsetTop-10 + 'px';    // Размещение ползунка на таймлайне по вертикали
+}
 
 
 
 let player = new Player();
 
 player.changeTrack(titleText); // не передаем action
-player.refreshState(trackLengthText, currentTimeText, scroller, timeline, timelinePlayed, timelineBuffered, play)
+player.refreshState(trackLengthText, currentTimeText, scroller, timeline, timelinePlayed, timelineBuffered, play);
 
 play.onclick = () => {
     player.togglePlayAudio();
@@ -42,7 +57,12 @@ next.onclick = () => {
 prew.onclick = () => {
     player.changeTrack(titleText, 'prew');
 }
-
+playlist_open.onclick = () => {
+    player.togglePlaylist(playlistBlock);
+}
+playlist_close.onclick = () => {
+    player.togglePlaylist(playlistBlock);
+}
 
 // mouse rewind
 scroller.onmousedown = () => {
@@ -111,8 +131,20 @@ scroller.ontouchstart = () => {
 
 setInterval(function(){
     player.refreshState(trackLengthText, currentTimeText, scroller, timeline, timelinePlayed, timelineBuffered, play);
+    
+    for(let i = 0; i < playlist_st.length; i++){
+        playlist_st[i].style = '';
+    }
+    
+    playlist_st[player.trackCurrentAudioId].style.background = '#ffffff';
+    playlist_st[player.trackCurrentAudioId].style.color = '#000000';
+    
     if(player.playerState){
-        player.trackCurrentAudio.onended =() => {
+        player.trackCurrentAudio.onended = () => {
+            player.changeTrack(titleText, 'next');
+        };
+        player.trackCurrentAudio.onstalled = () => {
+            alert('err');
             player.changeTrack(titleText, 'next');
         };
     }
